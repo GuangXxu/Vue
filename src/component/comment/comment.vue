@@ -36,7 +36,7 @@ export default {
       this.axios.get(
           this.url.getComL +"/" +this.$route.params.id + "?" + "pageindex=" + this.pageindex)
         .then(rep => {
-          this.comList = rep.data.message;
+          this.comList = this.comList.concat(rep.data.message);
           this.pageindex ++ ;} );
     }
   }
@@ -53,7 +53,6 @@ article {
   }
 }
 h3 {
-  // margin:8px;
   line-height: 26px;
   font-size: 22px;
   font-family: none;

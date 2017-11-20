@@ -1,8 +1,12 @@
 <template>
     <article>
         <ul class="mui-table-view">
-          <li class="mui-table-view-cell"> 全部</li>
-				  <li class="mui-table-view-cell" v-for="nav in navList" :key="nav.id">{{ nav.title }}</li>
+          <li class="mui-table-view-cell">
+            <router-link v-bind:to="{ name:'pl',params:{ id:0 }}">全部</router-link>
+          </li>
+				  <li class="mui-table-view-cell" v-for="nav in navList" :key="nav.id">
+            <router-link v-bind:to="{ name:'pl',params: { id:nav.id }}">{{ nav.title }}</router-link>
+          </li>
 			</ul>
 
       <div class="mui-card" v-for="list in imgList" v-bind:key="list.id">
@@ -25,15 +29,13 @@ export default {
   data() {
     return {
       imgList: [],
-      navList: [],
-      id: ""
+      navList: []
     };
   },
   methods: {
     getImgList() {
-      this.id = this.$route.params.id ? this.$route.params.id : 0;
       this.axios
-        .get(this.url.getIL + "/" + this.id)
+        .get(this.url.getIL + "/" + this.$route.params.id)
         .then(rep => (this.imgList = rep.data.message));
     },
     getNavList() {
@@ -45,6 +47,11 @@ export default {
   created() {
     this.getImgList();
     this.getNavList();
+  },
+  watch:{
+    $route(){
+      this.getImgList();
+    }
   }
 };
 </script>
@@ -63,12 +70,12 @@ ul{
 img {
     width: 100%;
   }
-   p {
+   p:last-child {
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
       -webkit-box-orient: vertical;
-      -webkit-line-clamp: 3;
+      -webkit-line-clamp: 2;
       text-align: left;
       text-indent: 2em;
     }

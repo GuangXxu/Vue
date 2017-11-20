@@ -1,20 +1,30 @@
 <template>
     <article>
         <app-nav :tit="title"></app-nav>
-        <div class="top" v-for="deta in details" :key="deta.id">
-            <h3>{{ deta.title }}</h3>
-            <p><span>{{ deta.add_time }}</span>　<span>{{ deta.click }}次浏览</span></p>
-             <div v-for="list in imgList" :key="list.id">
-                <img v-bind:src=" list.src" alt="">
+        <div class="mui-card" v-for="deta in details" :key="deta.id">
+            <div class="mui-card-header" >
+              <h4>{{ deta.title }}</h4>
+              <p calss="">
+                <span>发表于:{{ deta.add_time | date }}</span>　
+                <span>{{ deta.click }}次浏览</span></p>
             </div>
-            <p v-html="deta.content"></p>        
+            <ul class="mui-table-view mui-grid-view">
+                <li class="mui-table-view-cell mui-media mui-col-xs-4" v-for="list in imgList" :key="list.id">
+                    <a href="#">
+                        <img class="mui-media-object" v-bind:src="list.src">
+                    </a>
+                </li>
+            </ul>
+            <div class="mui-card-footer" v-html= 'deta.content'>
+            </div>
         </div>
-       
+        <app-ment></app-ment>
     </article>
   
 </template>
 <script>
-import Navcom from '../navcom/navcom.vue'
+import Navcom from '../navcom/navcom.vue';
+import Comment from '../comment/comment.vue';
 export default {
   data(){
       return {
@@ -24,7 +34,8 @@ export default {
       }
   },
   components:{
-      'app-nav':Navcom
+      'app-nav':Navcom,
+      'app-ment':Comment,
   },
   methods:{
       getImgs(){
@@ -43,9 +54,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
-    article{
-        margin: 45px;
-    }
+.mui-card-header, .mui-card-footer{
+  display: block;
+}
 </style>
 
 
