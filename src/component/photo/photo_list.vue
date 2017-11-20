@@ -1,24 +1,22 @@
 <template>
     <article>
-        <main>
-            <nav>
-                <ul>
-                    <li v-for="nav in navList" :key="nav.id"><a href="">{{ nav.title }}</a></li>
-                </ul>
-            </nav>
-            <div v-for="list in imgList" v-bind:key="list.id">
-                <router-link v-bind="{ to:`/photo/detail/${list.id}`}">
-                    <img :key="list.img_url" v-lazy="list.img_url">
-                    <footer>
-                        <span>{{ list.title }}</span>
-                        <p v-html="list.zhaiyao"></p>
-                    </footer>
-                </router-link>
-                
-                
-            </div>
-        </main>
+        <ul class="mui-table-view">
+          <li class="mui-table-view-cell"> 全部</li>
+				  <li class="mui-table-view-cell" v-for="nav in navList" :key="nav.id">{{ nav.title }}</li>
+			</ul>
 
+      <div class="mui-card" v-for="list in imgList" v-bind:key="list.id">
+         <router-link v-bind="{ to:`/photo/detail/${list.id}`}">
+            <img :key="list.img_url" v-lazy="list.img_url">
+              <div class="mui-card-content">
+                  <div class="mui-card-content-inner">
+                    <p>{{ list.title }}</p>
+                    <p style="color: #333;" v-html="list.zhaiyao"></p>
+                  </div>
+
+              </div>
+         </router-link>
+			</div>
     </article>  
 </template>
 
@@ -51,44 +49,21 @@ export default {
 };
 </script>
 <style lang="less" scoped>
-article {
-  margin-bottom: 50px;
+.mui-card-header, .mui-card-footer{
+  display:block;
 }
-ul {
-  line-height: 30px;
-  height: 30px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+ul{
   overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  border-bottom: 1px solid #ccc;
-  margin-bottom: 2px;
 }
-li {
-  padding: 0 8px;
-  height: 100%;
+.mui-table-view li{
   float: left;
+  color:deepskyblue;
+  padding: 6px 12px;
 }
-
-div {
-  position: relative;
-  height: 375px;
-  img {
+img {
     width: 100%;
   }
-  footer {
-    padding: 5px;
-    position: absolute;
-    left: 0;
-    bottom: 1px;
-    span {
-      font-size: 16px;
-      font-weight: 500;
-      color: #fff;
-    }
-    p {
+   p {
       overflow: hidden;
       text-overflow: ellipsis;
       display: -webkit-box;
@@ -96,16 +71,12 @@ div {
       -webkit-line-clamp: 3;
       text-align: left;
       text-indent: 2em;
-      color: #fff;
-      margin: 0;
     }
-  }
+image[lazy="loading"] {
+  width: 100px;
+  height: 300px;
+  margin: auto;
 }
-// image[lazy="loading"] {
-//   width: 100px;
-//   height: 300px;
-//   margin: auto;
-// }
 </style>
 
 
