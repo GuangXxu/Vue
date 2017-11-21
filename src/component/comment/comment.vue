@@ -36,7 +36,7 @@ export default {
       this.axios.get(
           this.url.getComL +"/" +this.$route.params.id + "?" + "pageindex=" + this.pageindex)
         .then(rep => {
-          this.comList = this.comList.concat(rep.data.message);
+          this.comList.push( ...rep.data.message );
           this.pageindex ++ ;} );
     }
   }

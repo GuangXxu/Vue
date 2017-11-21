@@ -1,6 +1,8 @@
 <template>
   <article>
+      <!-- 返回上页送的nav组件 -->
         <app-nav :tit="title"></app-nav>
+       <!-- mui  -->
         <ul class="mui-table-view">
             <li class="mui-table-view-cell mui-media" v-for="list in NewsList" v-bind:key="list.id">
                 <router-link v-bind="{ to:`/news/detail/${list.id}` }" class="">
@@ -16,7 +18,6 @@
   </article>
 </template>
 <script>
-import nav from '../navcom/navcom.vue';
 export default {
     data() {
         return {
@@ -24,10 +25,8 @@ export default {
             NewsList: []
         };
     },
-    components:{
-        'app-nav' : nav
-    },
     methods: {
+        // 获取所有的新闻内容
         getNewsList() {
         this.axios.get(this.url.getNL)
             .then(rep => (this.NewsList = rep.data.message));

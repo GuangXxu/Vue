@@ -1,6 +1,8 @@
 <template>
     <article>
+      <!-- 返回上页送的nav组件 -->
         <app-nav :tit="title"></app-nav>
+        <!-- mui  -->
         <div class="mui-card" v-for="item in detail" v-bind:key="item.id">
             <div class="mui-card-header" >
               <h4>{{ item.title }}</h4>
@@ -11,12 +13,11 @@
           <div class="mui-card-footer" v-html= 'item.content'>
           </div>
         </div>
+        <!-- 评论组件 -->
         <app-ment></app-ment>
   </article>
 </template>
 <script>
-import nav from "../navcom/navcom.vue";
-import comment from '../comment/comment.vue';
 export default {
   data() {
     return {
@@ -24,11 +25,8 @@ export default {
       detail: []
     };
   },
-  components: {
-    "app-nav": nav,
-    "app-ment" :comment
-  },
   methods: {
+    // 获取新闻详情信息
     getnewsC() {
       this.axios
         .get(this.url.getND + "/" + this.$route.params.id)
@@ -47,5 +45,4 @@ export default {
 img{
   width:100%;
 }
-
 </style>

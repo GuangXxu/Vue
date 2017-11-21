@@ -12,6 +12,10 @@ import  MintUi from 'mint-ui';
 import 'mint-ui/lib/style.css';
 //导入自己的组件  它自己会找到index.js文件
 import Common from '../component/common';
+import Navcom from '../component/navcom';
+//导入less样式
+import'../less/index.less';
+//导入时间过滤器
 import Filter from '../filter';
 
 //导入mui的css样式
@@ -22,12 +26,12 @@ import 'mui/examples/hello-mui/css/icons-extra.css';
 import { Lazyload } from 'mint-ui';
 Vue.use(Lazyload);
 
-//vue-perview
-import VuePreview from 'vue-preview';
-Vue.use(VuePreview);
-
-
+//vue-picture-perview插件
+import VuePP from 'vue-picture-preview';
+Vue.use(VuePP);
+//路由插件
 import VueRouter from 'vue-router';
+//axios插件 ==ajax
 import axios from 'axios';
 
 //1.2手动开启vue插件
@@ -35,6 +39,7 @@ Vue.use(MintUi);
 Vue.use(Common);
 Vue.use(VueRouter);
 Vue.use(Filter);
+Vue.use(Navcom);
 
 //2.0导入根组件
 import AppComponent from '../component/App.vue';
@@ -58,5 +63,6 @@ new Vue({
         //这个函数需要我们返回一个组件，把返回的组件渲染到el标签中
         return createNode(AppComponent);
     },
+    //启用路由
     router: new VueRouter(routerConfig)
 });

@@ -6,8 +6,6 @@
             <h1 class="mui-title">{{tit}}</h1>
         </div>
     </article>
-   
-    
 </template>
 <script>
     export default {

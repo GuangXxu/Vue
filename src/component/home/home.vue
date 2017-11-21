@@ -1,5 +1,6 @@
 <template>
     <article>
+        <!-- mint ui  轮播图 -->
         <mt-swipe :auto="4000">
             <mt-swipe-item v-for="item in lunbos" v-bind:key="item.url">
                 <a v-bind:href="item.url">
@@ -56,6 +57,7 @@ export default {
         }
     },
   methods: {
+    //   获取轮播图  图片
     getLunbo() {
         this.axios.get(this.url.getLB)
         .then( rep => this.lunbos = rep.data.message );

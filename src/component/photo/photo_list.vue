@@ -1,5 +1,6 @@
 <template>
     <article>
+      <!-- 分类导航栏 -->
         <ul class="mui-table-view">
           <li class="mui-table-view-cell">
             <router-link v-bind:to="{ name:'pl',params:{ id:0 }}">全部</router-link>
@@ -8,7 +9,7 @@
             <router-link v-bind:to="{ name:'pl',params: { id:nav.id }}">{{ nav.title }}</router-link>
           </li>
 			</ul>
-
+<!-- 图片的简介 -->
       <div class="mui-card" v-for="list in imgList" v-bind:key="list.id">
          <router-link v-bind="{ to:`/photo/detail/${list.id}`}">
             <img :key="list.img_url" v-lazy="list.img_url">
@@ -17,7 +18,6 @@
                     <p>{{ list.title }}</p>
                     <p style="color: #333;" v-html="list.zhaiyao"></p>
                   </div>
-
               </div>
          </router-link>
 			</div>
@@ -33,11 +33,13 @@ export default {
     };
   },
   methods: {
+    // 获取所有图片的信息
     getImgList() {
       this.axios
         .get(this.url.getIL + "/" + this.$route.params.id)
         .then(rep => (this.imgList = rep.data.message));
     },
+    // 获取分类导航
     getNavList() {
       this.axios
         .get(this.url.getIC)
@@ -49,6 +51,7 @@ export default {
     this.getNavList();
   },
   watch:{
+    //监听$route（url）的变化来发送请求
     $route(){
       this.getImgList();
     }
