@@ -11,7 +11,7 @@
             <span class="mui-tab-label">商品购买</span>
         </router-link>
         <router-link class="mui-tab-item" to="/">
-            <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge">9</span></span>
+            <span class="mui-icon mui-icon-extra mui-icon-extra-cart"><span class="mui-badge" v-text="buyCountSum"></span></span>
             <span class="mui-tab-label">购物车</span>
         </router-link>
         <router-link class="mui-tab-item" to="/">
@@ -23,7 +23,25 @@
   </footer>
 </template>
 <script>
-    
+import Storage from '../../js/storage.js';
+    export default {
+        data(){
+            return {
+                buyCountSum:0
+            }
+        },
+        methods:{
+            getbuyCount(){
+                let countSum = Storage.get('goodsData');
+                for(var key in countSum){
+                    this.buyCountSum += countSum[key];
+                }
+            }
+        },
+        created(){
+            this.getbuyCount();
+        }
+    }
 </script>
 <style lang="less" scoped>
 i{

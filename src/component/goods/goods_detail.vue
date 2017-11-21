@@ -16,7 +16,7 @@
         <div class="price"> <s>市场价:￥{{ goods.market_price }}</s> <span>销售价: </span> <em>￥{{  goods.sell_price }}</em> </div>
         <div> <span>购买数量：</span>
           <!--数字输入框 -->
-          <app-numbox initVal="1" @change="getTotal"></app-numbox>
+          <app-numbox v-bind:initVal="buyCount" v-on:change="getTotal"></app-numbox>
         </div>
       </div>
       <!-- 商品简介 -->
@@ -31,7 +31,7 @@
       <div class="mui-card-footer">
       	<button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">结算</button>
         <div></div>
-        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined">加入购物车</button>
+        <button type="button" class="mui-btn mui-btn-success mui-btn-block mui-btn-outlined" @click='addShopcart'>加入购物车</button>
       </div>
     </div>
 		<!-- 评论与介绍 -->
@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import Storage from '../../js/storage.js'
 import CommentComponent from '../comment/comment.vue';
 export default {
   data() {
@@ -64,7 +65,8 @@ export default {
       goodsCon: {},
       goods: {},
       id:this.$route.params.id,
-      navbarSelected:'content'
+      navbarSelected:'content',
+      buyCount:0
     };
   },
   components:{
@@ -90,13 +92,25 @@ export default {
     },
     // 获取最新的购买数量
     getTotal( total ){
-      console.log(total);
+      this.buyCount = total;
+    },
+    //加入购物车（存储到本地）
+    addShopcart(){
+      let oldData = Storage.get('goodsData') || {};
+      oldData[this.id] = this.buyCount;
+      Storage.set('goodsData',oldData);
+    },
+    // 购买数量的同步
+    setNum(){
+      let oldData = Storage.get('goodsData') || {};
+      this.buyCount = oldData[this.id];
     }
   },
   created() {
       this.getGLB();
       this.getCon();
       this.getGDetail();
+      this.setNum();
   }
 };
 </script>
