@@ -8,8 +8,10 @@ import PhotoDetailComponent from "../component/photo/photo_detail.vue";
 
 import GoodsListComponent from "../component/goods/goods_list.vue";
 import GoodsDetailComponent from "../component/goods/goods_detail.vue";
+import SgopcartComponent from "../component/shopcart/shopcart.vue";
 
 export default {
+    linkActiveClass: 'mui-active',
     routes:[
         //首页路由配置
         { path:'/',redirect: '/index' },
@@ -22,6 +24,8 @@ export default {
         { name:'pd',path:'/photo/detail/:id',component:PhotoDetailComponent },
         // 商品路由配置
         { name:'gl',path:"/goods/list/:id",component:GoodsListComponent },
-        { name:'gd',path:'/goods/detail/:id',component:GoodsDetailComponent }
+        { name:'gd',path:'/goods/detail/:id',component:GoodsDetailComponent },
+        //购物车路由
+        { name:'sc',path:'/shopcart',component:SgopcartComponent }
     ]
 }

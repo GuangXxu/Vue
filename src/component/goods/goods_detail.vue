@@ -66,7 +66,7 @@ export default {
       goods: {},
       id:this.$route.params.id,
       navbarSelected:'content',
-      buyCount:0
+      buyCount:(Storage.get('goodsData') || {})[this.$route.params.id]
     };
   },
   components:{
@@ -94,23 +94,18 @@ export default {
     getTotal( total ){
       this.buyCount = total;
     },
-    //加入购物车（存储到本地）
+    // 加入购物车, 调用vuex中提供的修改方法即可
     addShopcart(){
-      let oldData = Storage.get('goodsData') || {};
-      oldData[this.id] = this.buyCount;
-      Storage.set('goodsData',oldData);
-    },
-    // 购买数量的同步
-    setNum(){
-      let oldData = Storage.get('goodsData') || {};
-      this.buyCount = oldData[this.id];
+      this.$store.commit('upBuyData',{
+        id:this.id,
+        total:this.buyCount
+      })
     }
   },
   created() {
       this.getGLB();
       this.getCon();
       this.getGDetail();
-      this.setNum();
   }
 };
 </script>

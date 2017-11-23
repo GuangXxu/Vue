@@ -33,6 +33,7 @@ Vue.use(VuePP);
 import VueRouter from 'vue-router';
 //axios插件 ==ajax
 import axios from 'axios';
+import Vuex from "vuex";
 
 //1.2手动开启vue插件
 Vue.use(MintUi);
@@ -40,6 +41,8 @@ Vue.use(Common);
 Vue.use(VueRouter);
 Vue.use(Filter);
 Vue.use(Navcom);
+Vue.use(Vuex);
+
 
 //2.0导入根组件
 import AppComponent from '../component/App.vue';
@@ -47,6 +50,7 @@ import AppComponent from '../component/App.vue';
 //2.1导入配置
 import routerConfig from '../router';//会找到index.js文件
 import Url from './api_config.js';
+import store from '../vuex';//会找到index.js文件
 
 //2.3扩展实例对象
 // 把axios库放置到原型, 将来其他组件直接可以拿到axios对象
@@ -64,5 +68,6 @@ new Vue({
         return createNode(AppComponent);
     },
     //启用路由
-    router: new VueRouter(routerConfig)
+    router: new VueRouter(routerConfig),
+    store: new Vuex.Store(store)
 });
